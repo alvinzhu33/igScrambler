@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>igScrambler</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="message1" v-on:change="splice($event, 1)">
+        <p v-for="word in cutM1">{{ word }}</p>
+        <input type="text" v-model="message2" v-on:change="splice($event, 2)">
+        <p v-for="word in cutM2">{{ word }}</p>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message1: "Hello",
+                message2: "Bye",
+                cutM1: [],
+                cutM2: [],
+            },
+            methods: {
+                splice: function(event, num){
+                    if (num == 1){
+                        this.cutM1 = []
+                        var splitWords = this.message1.split(' ')
+                        for (var i = 0; i < splitWords.length; i++){
+                            this.cutM1.push('#' + splitWords[i] + ' ')
+                        }
+                    } else {
+                        this.cutM2 = []
+                        var splitWords = this.message2.split(' ')
+                        for (var i = 0; i < splitWords.length; i++) {
+                            this.cutM2.push('#' + splitWords[i] + ' ')
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
