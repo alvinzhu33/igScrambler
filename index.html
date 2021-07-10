@@ -14,8 +14,9 @@
         <input type="text" v-model="message2" v-on:change="splice($event, 2)">
         <p v-for="word in cutM2">{{ word }}</p>
 
-        <button v-on:click="scramble">SCRAMBLE</button>
-        <p v-if="show" v-for="word in scrambledMessage">{{ word }}</p>
+        <button v-if="cutM1.length >0 || cutM2.length > 0" v-on:click="scramble">SCRAMBLE</button>
+        <p v-if="show" v-for="word in scrambledCut">{{ word }}</p>
+        <button v-if="show" v-on:click="copy">COPY SCRAMBLE</button>
     </div>
 
     <script>
@@ -26,7 +27,8 @@
                 message2: "Bye",
                 cutM1: [],
                 cutM2: [],
-                scrambledMessage: [],
+                scrambledCut: [],
+                scrambledMessage: "",
                 show: false
             },
             methods: {
@@ -46,8 +48,17 @@
                     }
                 },
                 scramble: function(event){
-                    this.scrambledMessage = this.cutM1.concat(this.cutM2).sort(() => Math.random() - 0.5)
+                    this.scrambledCut = this.cutM1.concat(this.cutM2).sort(() => Math.random() - 0.5)
+                    this.scrambledMessage = this.scrambledCut.join("")
                     this.show = true
+                },
+                copy: function(event){
+                    inputEle = document.createElement('input')
+                    inputEle.setAttribute('value', this.scrambledMessage)
+                    document.body.append(inputEle)
+                    inputEle.select()
+                    document.execCommand('copy')
+                    inputEle.parentNode.removeChild(inputEle)
                 }
             }
         })
