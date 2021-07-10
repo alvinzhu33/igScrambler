@@ -13,6 +13,9 @@
         <p v-for="word in cutM1">{{ word }}</p>
         <input type="text" v-model="message2" v-on:change="splice($event, 2)">
         <p v-for="word in cutM2">{{ word }}</p>
+
+        <button v-on:click="scramble">SCRAMBLE</button>
+        <p v-if="show" v-for="word in scrambledMessage">{{ word }}</p>
     </div>
 
     <script>
@@ -23,6 +26,8 @@
                 message2: "Bye",
                 cutM1: [],
                 cutM2: [],
+                scrambledMessage: [],
+                show: false
             },
             methods: {
                 splice: function(event, num){
@@ -39,6 +44,10 @@
                             this.cutM2.push('#' + splitWords[i] + ' ')
                         }
                     }
+                },
+                scramble: function(event){
+                    this.scrambledMessage = this.cutM1.concat(this.cutM2).sort(() => Math.random() - 0.5)
+                    this.show = true
                 }
             }
         })
