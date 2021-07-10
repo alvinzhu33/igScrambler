@@ -9,13 +9,13 @@
 </head>
 <body>
     <div id="app">
-        <input type="text" v-model="message1" v-on:change="splice($event, 1)">
-        <p v-for="word in cutM1">{{ word }}</p>
-        <input type="text" v-model="message2" v-on:change="splice($event, 2)">
-        <p v-for="word in cutM2">{{ word }}</p>
+        <input type="text" v-model="messageGeneral" v-on:keyup="splice($event, 1)" placeholder="General-use hashtags">
+        <p v-for="word in splitGeneral">{{ word }}</p>
+        <input type="text" v-model="messageSpecific" v-on:keyup="splice($event, 2)" placeholder="Post-specific hashtags">
+        <p v-for="word in splitSpecific">{{ word }}</p>
 
-        <button v-if="cutM1.length >0 || cutM2.length > 0" v-on:click="scramble">SCRAMBLE</button>
-        <p v-if="show" v-for="word in scrambledCut">{{ word }}</p>
+        <button v-if="splitGeneral.length >0 || splitSpecific.length > 0" v-on:click="scramble">SCRAMBLE</button>
+        <p v-if="show" v-for="word in scrambledSplit">{{ word }}</p>
         <button v-if="show" v-on:click="copy">COPY SCRAMBLE</button>
     </div>
 
@@ -23,33 +23,41 @@
         var app = new Vue({
             el: '#app',
             data: {
-                message1: "Hello",
-                message2: "Bye",
-                cutM1: [],
-                cutM2: [],
-                scrambledCut: [],
+                messageGeneral: "",
+                messageSpecific: "",
+                splitGeneral: [],
+                splitSpecific: [],
+                scrambledSplit: [],
                 scrambledMessage: "",
                 show: false
             },
             methods: {
                 splice: function(event, num){
                     if (num == 1){
-                        this.cutM1 = []
-                        var splitWords = this.message1.split(' ')
-                        for (var i = 0; i < splitWords.length; i++){
-                            this.cutM1.push('#' + splitWords[i] + ' ')
+                        if (this.messageGeneral.length > 0){
+                            this.splitGeneral = []
+                            var splitWords = this.messageGeneral.split(' ')
+                            for (var i = 0; i < splitWords.length; i++){
+                                this.splitGeneral.push('#' + splitWords[i] + ' ')
+                            }
+                        } else {
+                            this.splitGeneral = []
                         }
                     } else {
-                        this.cutM2 = []
-                        var splitWords = this.message2.split(' ')
-                        for (var i = 0; i < splitWords.length; i++) {
-                            this.cutM2.push('#' + splitWords[i] + ' ')
+                        if (this.messageSpecific.length > 0){
+                            this.splitSpecific = []
+                            var splitWords = this.messageSpecific.split(' ')
+                            for (var i = 0; i < splitWords.length; i++) {
+                                this.splitSpecific.push('#' + splitWords[i] + ' ')
+                            }
+                        } else {
+                            this.splitSpecific = []
                         }
                     }
                 },
                 scramble: function(event){
-                    this.scrambledCut = this.cutM1.concat(this.cutM2).sort(() => Math.random() - 0.5)
-                    this.scrambledMessage = this.scrambledCut.join("")
+                    this.scrambledSplit = this.splitGeneral.concat(this.splitSpecific).sort(() => Math.random() - 0.5)
+                    this.scrambledMessage = this.scrambledSplit.join("")
                     this.show = true
                 },
                 copy: function(event){
