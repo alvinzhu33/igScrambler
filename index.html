@@ -10,21 +10,8 @@
     <meta name="google-signin-client_id" content="1072523115860-pi871022ohoipedb2i6ugbgml7ak82r4.apps.googleusercontent.com">
 </head>
 <body>
-    <!-- <div id="g_id_onload" 
-        data-client_id="1072523115860-pi871022ohoipedb2i6ugbgml7ak82r4.apps.googleusercontent.com" 
-        data-login_uri="https://alvinzhu33.github.io/igScrambler/index.html"
-        data-auto_prompt="false">
-    </div>
-    <div class="g_id_signin" 
-        data-type="standard" 
-        data-size="large" 
-        data-theme="outline" 
-        data-text="sign_in_with"
-        data-shape="rectangular" 
-        data-logo_alignment="left">
-    </div> -->
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <a href="#" onclick="signOut();">Sign out</a>
+    <a id="signOut" href="#" style="display: none;" onclick="signOut();">Sign out</a>
 
     <div id="app">
         <input type="text" v-model="messageGeneral" v-on:keyup="splice($event, 1)" placeholder="General-use hashtags">
@@ -35,6 +22,8 @@
         <button v-if="splitGeneral.length >0 || splitSpecific.length > 0" v-on:click="scramble">SCRAMBLE</button>
         <p v-if="show" v-for="word in scrambledSplit">{{ word }}</p>
         <button v-if="show" v-on:click="copy">COPY SCRAMBLE</button>
+
+        <button id="saveButton" style="display:none" onclick="saveHashtags();">Save</button>
     </div>
 
     <!-- <script src="https://accounts.google.com/gsi/client" async defer></script> -->
@@ -49,7 +38,6 @@
                 scrambledSplit: [],
                 scrambledMessage: "",
                 show: false,
-                // vSignedIn: signedIn
             },
             methods: {
                 splice: function(event, num){
@@ -97,13 +85,27 @@
             // console.log('Name: ' + profile.getName());
             // console.log('Image URL: ' + profile.getImageUrl());
             // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-            signedIn = true
+            document.getElementById("signOut").style.display = "block"
         }
         function signOut() {
             var auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(function () {
                 console.log('User signed out.');
             });
+            document.getElementById("signOut").style.display = "none"
+        }
+        function saveHashtags() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            if (auth2.isSignedIn.get()){
+                console.log("SAVE THIS")
+            } else {
+                console.log("SIGN IN FIRST")
+            }
+        }
+
+        let authInit = gapi.auth2.getAuthInstance();
+        if (auth2.isSignedIn.get()){
+            document.getElementById("saveButton").style.display = "block"
         }
     </script>
 </body>
