@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>igScrambler</title>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="1072523115860-pi871022ohoipedb2i6ugbgml7ak82r4.apps.googleusercontent.com">
 </head>
 <body>
-    <div id="g_id_onload" 
+    <!-- <div id="g_id_onload" 
         data-client_id="1072523115860-pi871022ohoipedb2i6ugbgml7ak82r4.apps.googleusercontent.com" 
         data-login_uri="https://alvinzhu33.github.io/igScrambler/index.html"
         data-auto_prompt="false">
@@ -20,7 +22,8 @@
         data-text="sign_in_with"
         data-shape="rectangular" 
         data-logo_alignment="left">
-    </div>
+    </div> -->
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
     <div id="app">
         <input type="text" v-model="messageGeneral" v-on:keyup="splice($event, 1)" placeholder="General-use hashtags">
@@ -33,7 +36,7 @@
         <button v-if="show" v-on:click="copy">COPY SCRAMBLE</button>
     </div>
 
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- <script src="https://accounts.google.com/gsi/client" async defer></script> -->
     <script>
         var app = new Vue({
             el: '#app',
@@ -85,6 +88,14 @@
                 }
             }
         })
+
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        }
     </script>
 </body>
 </html>
