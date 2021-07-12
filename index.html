@@ -5,19 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>igScrambler</title>
+
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="1072523115860-pi871022ohoipedb2i6ugbgml7ak82r4.apps.googleusercontent.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
-<body>
+<body class="container">
+    <h1>igScrambler</h1>
+
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <a id="signOut" href="#" style="display: none;" onclick="signOut();">Sign out</a>
 
     <div id="app">
-        <input type="text" v-model="messageGeneral" v-on:keyup="splice($event, 1)" placeholder="General-use hashtags">
-        <p v-for="word in splitGeneral">{{ word }}</p>
-        <input type="text" v-model="messageSpecific" v-on:keyup="splice($event, 2)" placeholder="Post-specific hashtags">
-        <p v-for="word in splitSpecific">{{ word }}</p>
+        <div class="hashtagInput mb-3">
+            <label for="genHashtags" class="form-label">General Hashtags</label>
+            <input id="genHashtags" type="text" v-model="messageGeneral" v-on:keyup="splice($event, 1)" placeholder="General-use hashtags" class="form-control">
+            <div>
+                <span v-for="word in splitGeneral">{{ word }}</span>
+            </div>
+        </div>
+        <div class="hashtagInput mb-3">
+            <label for="specHashtags" class="form-label">Specific Hashtags</label>
+            <input id="specHashtags" type="text" v-model="messageSpecific" v-on:keyup="splice($event, 2)" placeholder="Post-specific hashtags" class="form-control">
+            <div>
+                <span v-for="word in splitSpecific">{{ word }}</span>
+            </div>
+        </div>
+
+        <div>
+            <p><b>Number of Hastags:</b> {{ lengthTot }}</p>
+        </div>
 
         <button v-if="splitGeneral.length >0 || splitSpecific.length > 0" v-on:click="scramble">SCRAMBLE</button>
         <p v-if="show" v-for="word in scrambledSplit">{{ word }}</p>
@@ -35,6 +54,9 @@
                 messageSpecific: "",
                 splitGeneral: [],
                 splitSpecific: [],
+                lengthGeneral: 0,
+                lengthSpecific: 0,
+                lengthTot: 0,
                 scrambledSplit: [],
                 scrambledMessage: "",
                 show: false,
@@ -48,8 +70,10 @@
                             for (var i = 0; i < splitWords.length; i++){
                                 this.splitGeneral.push('#' + splitWords[i] + ' ')
                             }
+                            this.lengthGeneral = splitWords.length
                         } else {
                             this.splitGeneral = []
+                            this.lengthGeneral = 0
                         }
                     } else {
                         if (this.messageSpecific.length > 0){
@@ -58,10 +82,13 @@
                             for (var i = 0; i < splitWords.length; i++) {
                                 this.splitSpecific.push('#' + splitWords[i] + ' ')
                             }
+                            this.lengthSpecific = splitWords.length
                         } else {
                             this.splitSpecific = []
+                            this.lengthSpecific = 0
                         }
                     }
+                    this.lengthTot = this.lengthGeneral+this.lengthSpecific
                 },
                 scramble: function(event){
                     this.scrambledSplit = this.splitGeneral.concat(this.splitSpecific).sort(() => Math.random() - 0.5)
@@ -105,7 +132,7 @@
             }
         }
 
-        let authInit = gapi.auth2.getAuthInstance();
+        // let authInit = gapi.auth2.getAuthInstance();
         if (auth2.isSignedIn.get()){
             document.getElementById("signOut").style.display = "block"
             document.getElementById("saveButton").style.display = "block"
