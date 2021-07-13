@@ -144,8 +144,8 @@
         function saveHashtags() {
             var auth2 = gapi.auth2.getAuthInstance();
             if (auth2.isSignedIn.get()){
-                let gen = document.getElementById("genHashtags").value.split(" ")
-                let spec = document.getElementById("specHashtags").value.split(" ")
+                let gen = document.getElementById("genHashtags").value.trim()
+                let spec = document.getElementById("specHashtags").value.trim()
                 console.log(gen, spec)
                 firebase.database().ref(userId).set({
                     gen: gen,
