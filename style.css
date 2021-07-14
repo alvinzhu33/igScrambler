@@ -1,0 +1,13 @@
+.hashtagDisplay {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    align-content: flex-start;
+}
+
+.hashtags {
+    padding: 5px 10px 5px 7px;
+    margin: 10px;
+    background-color: pink;
+    border-radius: 3px;
+}

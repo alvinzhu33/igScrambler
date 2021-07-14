@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>igScrambler</title>
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -22,24 +23,26 @@
         <div class="hashtagInput mb-3">
             <label for="genHashtags" class="form-label">General Hashtags</label>
             <input id="genHashtags" type="text" v-model="messageGeneral" v-on:keyup="splice($event, 1)" placeholder="General-use hashtags" class="form-control">
-            <div>
-                <span v-for="word in splitGeneral">{{ word }}</span>
+            <div class='hashtagDisplay'>
+                <div v-for="word in splitGeneral" class="hashtags"><a :href="'https://www.instagram.com/explore/tags/' + word.substring(1)">{{ word }}</a></div>
             </div>
         </div>
         <div class="hashtagInput mb-3">
             <label for="specHashtags" class="form-label">Specific Hashtags</label>
             <input id="specHashtags" type="text" v-model="messageSpecific" v-on:keyup="splice($event, 2)" placeholder="Post-specific hashtags" class="form-control">
-            <div>
-                <span v-for="word in splitSpecific">{{ word }}</span>
+            <div class='hashtagDisplay'>
+                <div v-for="word in splitSpecific" class="hashtags">{{ word }}</div>
             </div>
         </div>
 
         <div>
-            <p><b>Number of Hastags:</b> {{ lengthTot }}</p>
+            <p><b>Number of Hashtags:</b> {{ lengthTot }}</p>
         </div>
 
         <button v-if="splitGeneral.length >0 || splitSpecific.length > 0" v-on:click="scramble">SCRAMBLE</button>
-        <p v-if="show" v-for="word in scrambledSplit">{{ word }}</p>
+        <div class='hashtagDisplay'>
+            <div v-if="show" v-for="word in scrambledSplit" class="hashtags">{{ word }}</div>
+        </div>
         <button v-if="show" v-on:click="copy">COPY SCRAMBLE</button>
 
         <button id="saveButton" style="display:none" onclick="saveHashtags();">Save</button>
