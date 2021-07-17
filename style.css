@@ -10,4 +10,16 @@
     margin: 10px;
     background-color: pink;
     border-radius: 3px;
+    font-family: 'Comic Sans MS', "comic Sans", cursive;
+    opacity: 70%;
+}
+
+.hashtags:hover {
+    opacity: 100%;
+    transition: 250ms linear;
+}
+
+a {
+    color: inherit !important;
+    text-decoration: none !important;
 }
