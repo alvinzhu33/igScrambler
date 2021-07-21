@@ -3,6 +3,7 @@
     flex-flow: row wrap;
     width: 100%;
     align-content: flex-start;
+    color: white;
 }
 
 .hashtags {
@@ -24,6 +25,6 @@ a {
     text-decoration: none !important;
 }
 
-.whiteText {
-    color: white;
+a:hover {
+    text-decoration: underline !important;
 }
