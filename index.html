@@ -49,8 +49,13 @@
         </div>
 
         <button v-if="splitGeneral.length >0 || splitSpecific.length > 0" v-on:click="scramble">SCRAMBLE</button>
-        <div class='hashtagDisplay'>
-            <div v-if="show" v-for="word in scrambledSplit" class="hashtags">#{{ word }}</div>
+        <div class='hashtagDisplay whiteText'>
+            <!-- <div v-if="show" v-for="word in scrambledSplit" class="hashtags">#{{ word }}</div> -->
+            <a v-for="wordIndex in scrambledSplit.length" class="hashtags"
+                :style="{ 'background-color' : colorsScrambled[(wordIndex-1)%3]}"
+                :href="'https://www.instagram.com/explore/tags/' + scrambledSplit[wordIndex-1]">
+                #{{ scrambledSplit[wordIndex-1] }}
+            </a>
         </div>
         <button v-if="show" v-on:click="copy">COPY SCRAMBLE</button>
 
@@ -90,6 +95,7 @@
                 show: false,
                 colorsGeneral: (["#96E8BC80", "#B6F9C980", "#C9FFE280"]).sort(() => Math.random() - 0.5),
                 colorsSpecific: (["#0a369d80", "#4472ca80", "#5e7ce280"]).sort(() => Math.random() - 0.5),
+                colorsScrambled: (["#A62639", "#DB324D", "#E43F6F"]).sort(() => Math.random() - 0.5),
             },
             methods: {
                 splice: function(num){
