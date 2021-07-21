@@ -155,13 +155,11 @@
                     })
                     loadPromise.then(val => {
                         console.log("then1")
-                        this.messageGeneral = document.getElementById("genHashtags")
-                        this.messageSpecific = document.getElementById("specHashtags")
+                        this.messageGeneral = document.getElementById("genHashtags").value
+                        this.messageSpecific = document.getElementById("specHashtags").value
                         console.log(this.messageGeneral)
                     }).then(val => {
                         console.log("then2")
-                    //     this.splice(event, 1)
-                    //     this.splice(event, 2)
                         let keyupEvent = new Event("keyup")
                         document.getElementById("genHashtags").dispatchEvent(keyupEvent)
                         document.getElementById("specHashtags").dispatchEvent(keyupEvent)
