@@ -144,6 +144,8 @@
                     firebase.database().ref(userId).on('value', function (snapshot) {
                         document.getElementById("genHashtags").value = snapshot.val().gen
                         document.getElementById("specHashtags").value = snapshot.val().spec
+                        this.messageGeneral = snapshot.val().gen
+                        this.messageSpecific = snapshot.val().spec
                     })
                     // inputEle = document.createElement('input')
                     // inputEle.setAttribute('value', "HELLO")
