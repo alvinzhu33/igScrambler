@@ -137,6 +137,12 @@
                     inputEle.select()
                     document.execCommand('copy')
                     inputEle.parentNode.removeChild(inputEle)
+                },
+                loadWords: function(event){
+                    firebase.database().ref(userId).on('value', function (snapshot) {
+                        document.getElementById("genHashtags").value = snapshot.val().gen
+                        document.getElementById("specHashtags").value = snapshot.val().spec
+                    })
                 }
             }
         })
@@ -190,12 +196,12 @@
             document.getElementById("loadButton").style.display = "none"
         }
 
-        function loadWords() {
-            firebase.database().ref(userId).on('value', function(snapshot){
-                document.getElementById("genHashtags").value = snapshot.val().gen
-                document.getElementById("specHashtags").value = snapshot.val().spec
-            })
-        }
+        // function loadWords() {
+        //     firebase.database().ref(userId).on('value', function(snapshot){
+        //         document.getElementById("genHashtags").value = snapshot.val().gen
+        //         document.getElementById("specHashtags").value = snapshot.val().spec
+        //     })
+        // }
     </script>
 </body>
 </html>
