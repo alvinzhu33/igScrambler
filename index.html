@@ -20,11 +20,11 @@
     <button id="signOutButton" style="display: none;" onclick="signOut()">
         Sign out
     </button>
-    <button id="loadButton" style="display: none;" v-on:click="loadWords">
-        Load Saved Words
-    </button>
-
+    
     <div id="app">
+        <button id="loadButton" style="display: none;" v-on:click="loadWords">
+            Load Saved Words
+        </button>
         <div class="hashtagInput mb-3">
             <label for="genHashtags" class="form-label">General Hashtags</label>
             <input id="genHashtags" type="text" v-model="messageGeneral" v-on:keyup="splice($event, 1)" placeholder="General-use hashtags" class="form-control">
@@ -139,14 +139,14 @@
                     inputEle.parentNode.removeChild(inputEle)
                 },
                 loadWords: function(event){
-                    console.log("HELLO")
-                    // firebase.database().ref(userId).on('value', function (snapshot) {
-                    //     document.getElementById("genHashtags").value = snapshot.val().gen
-                    //     document.getElementById("specHashtags").value = snapshot.val().spec
-                    // })
-                    inputEle = document.createElement('input')
-                    inputEle.setAttribute('value', "HELLO")
-                    document.body.append(inputEle)
+                    // console.log("HELLO")
+                    firebase.database().ref(userId).on('value', function (snapshot) {
+                        document.getElementById("genHashtags").value = snapshot.val().gen
+                        document.getElementById("specHashtags").value = snapshot.val().spec
+                    })
+                    // inputEle = document.createElement('input')
+                    // inputEle.setAttribute('value', "HELLO")
+                    // document.body.append(inputEle)
                 }
             }
         })
