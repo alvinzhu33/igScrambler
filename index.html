@@ -140,14 +140,15 @@
                 },
                 loadWords: function(event){
                     console.log("HELLO")
-                    firebase.database().ref(userId).on('value', function (snapshot) {
-                        document.getElementById("genHashtags").value = snapshot.val().gen
-                        document.getElementById("specHashtags").value = snapshot.val().spec
-                    })
+                    // firebase.database().ref(userId).on('value', function (snapshot) {
+                    //     document.getElementById("genHashtags").value = snapshot.val().gen
+                    //     document.getElementById("specHashtags").value = snapshot.val().spec
+                    // })
                 }
             }
         })
 
+        var signedIn = false;
         var userId;
 
         function onSignIn(googleUser) {
@@ -157,6 +158,7 @@
             // console.log('Image URL: ' + profile.getImageUrl());
             // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
             signInRender()
+            signedIn = true;
         }
         function signOut() {
             var auth2 = gapi.auth2.getAuthInstance();
@@ -164,6 +166,7 @@
                 console.log('User signed out.');
             });
             signOutRender()
+            signedIn = false;
         }
         function saveHashtags() {
             var auth2 = gapi.auth2.getAuthInstance();
@@ -188,8 +191,8 @@
 
         function signInRender(){
             document.getElementById("signOutButton").style.display = "block"
-            document.getElementById("saveButton").style.display = "block"
             document.getElementById("loadButton").style.display = "block"
+            // document.getElementById("saveButton").style.display = "block"
         }
         function signOutRender(){
             document.getElementById("signOutButton").style.display = "none"
