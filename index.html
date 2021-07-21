@@ -144,7 +144,7 @@
                 },
                 loadWords: function(event){
                     // console.log("HELLO")
-                    // const loadPromise = new Promise((resolve, reject) => {
+                    const loadPromise = new Promise((resolve, reject) => {
                         firebase.database().ref(userId).on('value', function (snapshot) {
                             document.getElementById("genHashtags").value = snapshot.val().gen
                             document.getElementById("specHashtags").value = snapshot.val().spec
@@ -153,14 +153,17 @@
                             console.log(this.messageGeneral)
                             this.$refs.specHashInput.keyup()
                         })
-                        // resolve("Great!")
+                        resolve("Great!")
                         console.log("new")
-                    // })
-                    // loadPromise.then(val => {
-                    //     console.log("new?")
+                    })
+                    loadPromise.then(val => {
+                        console.log("new?>")
                     //     this.splice(event, 1)
                     //     this.splice(event, 2)
-                    // })
+                        let keyupEvent = new Event("keyup")
+                        document.getElementById("genHashtags").dispatchEvent(keyupEvent)
+                        document.getElementById("specHashtags").dispatchEvent(keyupEvent)
+                    })
                     // inputEle = document.createElement('input')
                     // inputEle.setAttribute('value', "HELLO")
                     // document.body.append(inputEle)
