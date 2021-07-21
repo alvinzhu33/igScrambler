@@ -17,7 +17,12 @@
     <h1>igScrambler</h1>
 
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <a id="signOut" href="#" style="display: none;" onclick="signOut();">Sign out</a>
+    <button id="signOutButton" style="display: none;" onclick="signOut()">
+        Sign out
+    </button>
+    <button id="loadButton" style="display: none;" onclick="load()">
+        Load saved words
+    </button>
 
     <div id="app">
         <div class="hashtagInput mb-3">
@@ -45,7 +50,7 @@
 
         <button v-if="splitGeneral.length >0 || splitSpecific.length > 0" v-on:click="scramble">SCRAMBLE</button>
         <div class='hashtagDisplay'>
-            <div v-if="show" v-for="word in scrambledSplit" class="hashtags">{{ word }}</div>
+            <div v-if="show" v-for="word in scrambledSplit" class="hashtags">#{{ word }}</div>
         </div>
         <button v-if="show" v-on:click="copy">COPY SCRAMBLE</button>
 
@@ -117,7 +122,7 @@
                 },
                 scramble: function(event){
                     this.scrambledSplit = this.splitGeneral.concat(this.splitSpecific).sort(() => Math.random() - 0.5)
-                    this.scrambledMessage = this.scrambledSplit.join("")
+                    this.scrambledMessage = "#" + this.scrambledSplit.join("#")
                     this.show = true
                 },
                 copy: function(event){
@@ -139,16 +144,14 @@
             // console.log('Name: ' + profile.getName());
             // console.log('Image URL: ' + profile.getImageUrl());
             // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-            document.getElementById("signOut").style.display = "block"
-            document.getElementById("saveButton").style.display = "block"
+            signInRender()
         }
         function signOut() {
             var auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(function () {
                 console.log('User signed out.');
             });
-            document.getElementById("signOut").style.display = "none"
-            document.getElementById("saveButton").style.display = "none"
+            signOutRender()
         }
         function saveHashtags() {
             var auth2 = gapi.auth2.getAuthInstance();
@@ -168,8 +171,18 @@
         // let authInit = gapi.auth2.getAuthInstance();
         if (auth2.isSignedIn.get()){
             userId = auth2.currentUser.get().getBasicProfile().getId()
-            document.getElementById("signOut").style.display = "block"
+            signInRender()
+        }
+
+        function signInRender(){
+            document.getElementById("signOutButton").style.display = "block"
             document.getElementById("saveButton").style.display = "block"
+            document.getElementById("loadButton").style.display = "block"
+        }
+        function signOutRender(){
+            document.getElementById("signOutButton").style.display = "none"
+            document.getElementById("saveButon").style.display = "none"
+            document.getElementById("loadButton").style.display = "none"
         }
     </script>
 </body>
