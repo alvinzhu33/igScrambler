@@ -54,7 +54,7 @@
         </div>
         <button v-if="show" v-on:click="copy">COPY SCRAMBLE</button>
 
-        <button v-if="splitGeneral.length >0 || splitSpecific.length > 0" id="saveButton" style="display:none" onclick="saveHashtags();">Save</button>
+        <button id="saveButton" style="display:none" onclick="saveHashtags();">Save</button>
     </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -119,6 +119,11 @@
                         }
                     }
                     this.lengthTot = this.lengthGeneral+this.lengthSpecific
+                    if (this.lengthTot > 0){
+                        document.getElementById("saveButton").style.display = "block"
+                    } else {
+                        document.getElementById("saveButton").style.display = "none"
+                    }
                 },
                 scramble: function(event){
                     this.scrambledSplit = this.splitGeneral.concat(this.splitSpecific).sort(() => Math.random() - 0.5)
@@ -181,7 +186,7 @@
         }
         function signOutRender(){
             document.getElementById("signOutButton").style.display = "none"
-            document.getElementById("saveButon").style.display = "none"
+            document.getElementById("saveButton").style.display = "none"
             document.getElementById("loadButton").style.display = "none"
         }
 
