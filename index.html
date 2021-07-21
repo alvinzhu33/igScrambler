@@ -145,17 +145,18 @@
                 loadWords: function(event){
                     // console.log("HELLO")
                     firebase.database().ref(userId).on('value', function (snapshot) {
-                        document.getElementById("genHashtags").value = snapshot.val().gen
-                        document.getElementById("specHashtags").value = snapshot.val().spec
+                        // document.getElementById("genHashtags").value = snapshot.val().gen
+                        // document.getElementById("specHashtags").value = snapshot.val().spec
                         this.messageGeneral = snapshot.val().gen
                         this.messageSpecific = snapshot.val().spec
                         // console.log(this.messageGeneral)
-                    }).then(event => {
-                        this.splice(event, 1)
-                        // console.log("hello2")
-                        this.splice(event, 2)
-
                     })
+                    // .then(event => {
+                    //     this.splice(event, 1)
+                    //     // console.log("hello2")
+                    //     this.splice(event, 2)
+
+                    // })
                     // inputEle = document.createElement('input')
                     // inputEle.setAttribute('value', "HELLO")
                     // document.body.append(inputEle)
