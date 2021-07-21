@@ -151,9 +151,9 @@
                             this.messageGeneral = snapshot.val().gen
                             this.messageSpecific = snapshot.val().spec
                             console.log(this.messageGeneral)
+                            console.log("hell")
                         })
-                    })
-                    loadPromise.then(val => {
+                    }).then(val => {
                         console.log(this.messageSpecific)
                         this.splice(event, 1)
                         this.splice(event, 2)
