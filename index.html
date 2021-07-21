@@ -27,7 +27,7 @@
         </button>
         <div class="hashtagInput mb-3">
             <label for="genHashtags" class="form-label">General Hashtags</label>
-            <input id="genHashtags" type="text" v-model="messageGeneral" v-on:keyup="splice($event, 1)" placeholder="General-use hashtags" class="form-control">
+            <input id="genHashtags" type="text" :value="messageGeneral" v-on:keyup="splice($event, 1)" placeholder="General-use hashtags" class="form-control">
             <div class='hashtagDisplay'>
                 <a v-for="wordIndex in splitGeneral.length" class="hashtags" :style="{ 'background-color' : colorsGeneral[(wordIndex-1)%3]}" :href="'https://www.instagram.com/explore/tags/' + splitGeneral[wordIndex-1]">
                     #{{ splitGeneral[wordIndex-1] }}
