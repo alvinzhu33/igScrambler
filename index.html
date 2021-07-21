@@ -150,10 +150,10 @@
                             document.getElementById("specHashtags").value = snapshot.val().spec
                             this.messageGeneral = snapshot.val().gen
                             this.messageSpecific = snapshot.val().spec
-                            // console.log(this.messageGeneral)
+                            console.log(this.messageGeneral)
                         })
                     })
-                    loadPromise.then(event => {
+                    loadPromise.then(() => {
                         this.splice(event, 1)
                         // console.log("hello2")
                         this.splice(event, 2)
