@@ -139,6 +139,7 @@
                     inputEle.parentNode.removeChild(inputEle)
                 },
                 loadWords: function(event){
+                    console.log("HELLO")
                     firebase.database().ref(userId).on('value', function (snapshot) {
                         document.getElementById("genHashtags").value = snapshot.val().gen
                         document.getElementById("specHashtags").value = snapshot.val().spec
