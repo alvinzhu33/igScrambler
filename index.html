@@ -93,8 +93,9 @@
             },
             methods: {
                 splice: function(event, num){
-                    console.log("hit")
                     if (num == 1){
+                        console.log("hit1")
+                        console.log(this.messageGeneral)
                         if (this.messageGeneral.length > 0){
                             this.splitGeneral = []
                             var splitWords = this.messageGeneral.split(' ')
@@ -107,6 +108,8 @@
                             this.lengthGeneral = 0
                         }
                     } else {
+                        console.log("hit2")
+                        console.log(this.messageSpecific)
                         if (this.messageSpecific.length > 0){
                             this.splitSpecific = []
                             var splitWords = this.messageSpecific.split(' ')
@@ -146,6 +149,7 @@
                         document.getElementById("specHashtags").value = snapshot.val().spec
                         this.messageGeneral = snapshot.val().gen
                         this.messageSpecific = snapshot.val().spec
+                        console.log(this.messageGeneral)
                     })
                     // inputEle = document.createElement('input')
                     // inputEle.setAttribute('value', "HELLO")
