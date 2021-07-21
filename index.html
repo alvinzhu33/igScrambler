@@ -144,7 +144,7 @@
                 },
                 loadWords: function(event){
                     // console.log("HELLO")
-                    const loadPromise = new Promise((resolve, reject) => {
+                    // const loadPromise = new Promise((resolve, reject) => {
                         firebase.database().ref(userId).on('value', function (snapshot) {
                             document.getElementById("genHashtags").value = snapshot.val().gen
                             document.getElementById("specHashtags").value = snapshot.val().spec
@@ -153,7 +153,8 @@
                             console.log(this.messageGeneral)
                         })
                         // resolve("Great!")
-                    })
+                        console.log("new")
+                    // })
                     // loadPromise.then(val => {
                     //     console.log("new?")
                     //     this.splice(event, 1)
