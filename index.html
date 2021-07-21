@@ -152,16 +152,21 @@
                             this.messageSpecific = snapshot.val().spec
                             console.log(this.messageGeneral)
                         })
-                        resolve("Great!")
+                        // resolve("Great!")
                     })
-                    loadPromise.then(val => {
-                        console.log("new?")
-                        this.splice(event, 1)
-                        this.splice(event, 2)
-                    })
+                    // loadPromise.then(val => {
+                    //     console.log("new?")
+                    //     this.splice(event, 1)
+                    //     this.splice(event, 2)
+                    // })
                     // inputEle = document.createElement('input')
                     // inputEle.setAttribute('value', "HELLO")
                     // document.body.append(inputEle)
+                }
+            },
+            watch: {
+                messageGeneral: function(val){
+                    this.splice(val, 1)
                 }
             }
         })
