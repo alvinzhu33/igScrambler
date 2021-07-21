@@ -191,17 +191,10 @@
         }
 
         function loadWords() {
-            genHash = document.getElementById('genHashtags')
-            genHash.setAttribute('value', )
-            var auth2 = gapi.auth2.getAuthInstance();
-            if (auth2.isSignedIn.get()) {
-                firebase.database().ref(userId).on('value', function(snapshot){
-                    document.getElementById("genHashtags").value = snapshot.val().gen
-                    document.getElementById("specHashtags").value = snapshot.val().spec
-                })
-            } else {
-                console.log("SIGN IN FIRST")
-            }
+            firebase.database().ref(userId).on('value', function(snapshot){
+                document.getElementById("genHashtags").value = snapshot.val().gen
+                document.getElementById("specHashtags").value = snapshot.val().spec
+            })
         }
     </script>
 </body>
