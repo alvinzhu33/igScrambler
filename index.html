@@ -100,8 +100,8 @@
             methods: {
                 splice: function(num){
                     if (num == 1){
-                        console.log("hit1")
-                        console.log(this.messageGeneral)
+                        // console.log("hit1")
+                        // console.log(this.messageGeneral)
                         if (this.messageGeneral.length > 0){
                             this.splitGeneral = []
                             var splitWords = this.messageGeneral.split(' ')
@@ -114,8 +114,8 @@
                             this.lengthGeneral = 0
                         }
                     } else {
-                        console.log("hit2")
-                        console.log(this.messageSpecific)
+                        // console.log("hit2")
+                        // console.log(this.messageSpecific)
                         if (this.messageSpecific.length > 0){
                             this.splitSpecific = []
                             var splitWords = this.messageSpecific.split(' ')
@@ -136,11 +136,13 @@
                     }
                 },
                 scramble: function(event){
+                    console.log("Scrambling")
                     this.scrambledSplit = this.splitGeneral.concat(this.splitSpecific).sort(() => Math.random() - 0.5)
                     this.scrambledMessage = "#" + this.scrambledSplit.join("#")
                     this.show = true
                 },
                 copy: function(event){
+                    console.log("Copying")
                     inputEle = document.createElement('input')
                     inputEle.setAttribute('value', this.scrambledMessage)
                     document.body.append(inputEle)
@@ -149,6 +151,7 @@
                     inputEle.parentNode.removeChild(inputEle)
                 },
                 loadWords: function(event){
+                    console.log("Loading")
                     const loadPromise = new Promise((resolve, reject) => {
                         firebase.database().ref(userId).on('value', function (snapshot) {
                             document.getElementById("genHashtags").value = snapshot.val().gen
@@ -160,7 +163,7 @@
                         // console.log("then1")
                         this.messageGeneral = document.getElementById("genHashtags").value
                         this.messageSpecific = document.getElementById("specHashtags").value
-                        console.log(this.messageGeneral)
+                        // console.log(this.messageGeneral)
                     }).then(val => {
                         // console.log("then2")
                         let keyupEvent = new Event("keyup")
@@ -197,7 +200,7 @@
             if (auth2.isSignedIn.get()){
                 let gen = document.getElementById("genHashtags").value.trim()
                 let spec = document.getElementById("specHashtags").value.trim()
-                console.log(gen, spec)
+                // console.log(gen, spec)
                 firebase.database().ref(userId).set({
                     gen: gen,
                     spec: spec
@@ -223,13 +226,6 @@
             document.getElementById("saveButton").style.display = "none"
             document.getElementById("loadButton").style.display = "none"
         }
-
-        // function loadWords() {
-        //     firebase.database().ref(userId).on('value', function(snapshot){
-        //         document.getElementById("genHashtags").value = snapshot.val().gen
-        //         document.getElementById("specHashtags").value = snapshot.val().spec
-        //     })
-        // }
     </script>
 </body>
 </html>
