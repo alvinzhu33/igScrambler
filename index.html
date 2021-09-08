@@ -180,7 +180,7 @@
 
         var provider = new firebase.auth.GoogleAuthProvider();
 
-        function onSignIn(googleUser) {
+        function onSignIn() {
             firebase.auth()
                 .signInWithPopup(provider)
                 .then((result) => {
@@ -206,9 +206,10 @@
             signedIn = true;
         }
         function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-                console.log('User signed out.');
+            firebase.auth().signOut().then(() => {
+                console.log("Signed out")
+            }).catch((error) => {
+                console.log("Signed out ERROR")
             });
             signOutRender()
             signedIn = false;
