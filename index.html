@@ -179,14 +179,18 @@
         var userId;
 
         var provider = new firebase.auth.GoogleAuthProvider();
-        var startUser = firebase.auth().user
+        var startUser = firebase.auth().currentUser
         console.log("Start", startUser)
 
         // let authInit = gapi.auth2.getAuthInstance();
-        if (startUser) {
-            userId = startUser.uid
-            signInRender()
-        }
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                userId = user.uid;
+                signInRender()
+            } else {
+                signOutRender
+            }
+        });
 
         function onSignIn() {
             firebase.auth()
