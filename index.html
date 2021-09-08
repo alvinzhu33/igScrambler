@@ -206,10 +206,9 @@
             signedIn = true;
         }
         function signOut() {
-            firebase.auth().signOut().then(() => {
-                console.log("Signed out")
-            }).catch((error) => {
-                console.log("Sign out error")
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
             });
             signOutRender()
             signedIn = false;
