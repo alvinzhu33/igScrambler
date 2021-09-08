@@ -180,6 +180,7 @@
 
         var provider = new firebase.auth.GoogleAuthProvider();
         var startUser = firebase.auth().user
+        console.log("Start", startUser)
 
         // let authInit = gapi.auth2.getAuthInstance();
         if (startUser) {
