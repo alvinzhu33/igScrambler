@@ -179,6 +179,13 @@
         var userId;
 
         var provider = new firebase.auth.GoogleAuthProvider();
+        var startUser = firebase.auth().user
+
+        // let authInit = gapi.auth2.getAuthInstance();
+        if (startUser) {
+            userId = startUser.uid
+            signInRender()
+        }
 
         function onSignIn() {
             firebase.auth()
@@ -228,12 +235,6 @@
             } else {
                 console.log("SIGN IN FIRST")
             }
-        }
-
-        // let authInit = gapi.auth2.getAuthInstance();
-        if (auth2.isSignedIn.get()){
-            userId = auth2.currentUser.get().getBasicProfile().getId()
-            signInRender()
         }
 
         function signInRender(){
