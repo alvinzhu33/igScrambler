@@ -28,3 +28,7 @@ a {
 a:hover {
     text-decoration: underline !important;
 }
+
+#app {
+    padding-top: 2.5em;
+}

@@ -17,12 +17,12 @@
     <h1>igScrambler</h1>
 
     <div class="g-signin2" onclick="onSignIn()"></div>
-    <button id="signOutButton" style="display: none;" onclick="signOut()">
+    <button id="signOutButton" style="display: none;" onclick="signOut()" type="button" class="btn btn-light">
         Sign out
     </button>
     
     <div id="app">
-        <button id="loadButton" style="display: none;" v-on:click="loadWords">
+        <button id="loadButton" style="display: none;" v-on:click="loadWords" type="button" class="btn btn-info">
             Load Saved Words
         </button>
         <div class="hashtagInput mb-3">
@@ -180,7 +180,6 @@
 
         var provider = new firebase.auth.GoogleAuthProvider();
         var startUser = firebase.auth().currentUser
-        console.log("Start", startUser)
 
         // let authInit = gapi.auth2.getAuthInstance();
         firebase.auth().onAuthStateChanged((user) => {
@@ -245,6 +244,7 @@
         function signInRender(){
             document.getElementById("signOutButton").style.display = "block"
             document.getElementById("loadButton").style.display = "block"
+            document.getElementsByClassName("g-signin2").style.display = "none"
             // document.getElementById("saveButton").style.display = "block"
         }
         function signOutRender(){
