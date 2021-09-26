@@ -181,13 +181,12 @@
         var provider = new firebase.auth.GoogleAuthProvider();
         var startUser = firebase.auth().currentUser
 
-        // let authInit = gapi.auth2.getAuthInstance();
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 userId = user.uid;
                 signInRender()
             } else {
-                signOutRender
+                signOutRender()
             }
         });
 
@@ -251,6 +250,7 @@
             document.getElementById("signOutButton").style.display = "none"
             document.getElementById("saveButton").style.display = "none"
             document.getElementById("loadButton").style.display = "none"
+            document.getElementsByClassName("g-signin2").style.display = "block"
         }
     </script>
 </body>
