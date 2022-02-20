@@ -7,11 +7,20 @@
     <link rel="stylesheet" href="style.css">
     <title>igScrambler</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+        }
+      }
+    </script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="1072523115860-pi871022ohoipedb2i6ugbgml7ak82r4.apps.googleusercontent.com">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
 </head>
 <body class="container">
     <h1>igScrambler</h1>
@@ -62,11 +71,9 @@
         <button id="saveButton" style="display:none" onclick="saveHashtags();">Save</button>
     </div>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
-    <script>
+    <script type="module">
+        import { createApp } from 'vue'
+       
         // Your web app's Firebase configuration
         var firebaseConfig = {
             apiKey: "AIzaSyABJOM98XcFE_Wk-Z7H24AFQXNm3_ovf4g",
@@ -79,23 +86,24 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-
-        var app = new Vue({
-            el: '#app',
-            data: {
-                messageGeneral: "",
-                messageSpecific: "",
-                splitGeneral: [],
-                splitSpecific: [],
-                lengthGeneral: 0,
-                lengthSpecific: 0,
-                lengthTot: 0,
-                scrambledSplit: [],
-                scrambledMessage: "",
-                show: false,
-                colorsGeneral: (["#96E8BC", "#23967F", "#7DAF9C"]).sort(() => Math.random() - 0.5),
-                colorsSpecific: (["#0a369d", "#4472ca", "#5e7ce2"]).sort(() => Math.random() - 0.5),
-                colorsScrambled: (["#A62639", "#DB324D", "#E43F6F"]).sort(() => Math.random() - 0.5),
+        
+        createApp({
+            data() {
+                return {
+                    messageGeneral: "",
+                    messageSpecific: "",
+                    splitGeneral: [],
+                    splitSpecific: [],
+                    lengthGeneral: 0,
+                    lengthSpecific: 0,
+                    lengthTot: 0,
+                    scrambledSplit: [],
+                    scrambledMessage: "",
+                    show: false,
+                    colorsGeneral: (["#96E8BC", "#23967F", "#7DAF9C"]).sort(() => Math.random() - 0.5),
+                    colorsSpecific: (["#0a369d", "#4472ca", "#5e7ce2"]).sort(() => Math.random() - 0.5),
+                    colorsScrambled: (["#A62639", "#DB324D", "#E43F6F"]).sort(() => Math.random() - 0.5),
+                }
             },
             methods: {
                 splice: function(num){
@@ -173,7 +181,7 @@
                     })
                 }
             }
-        })
+        }).mount('#app')
 
         var signedIn = false;
         var userId;
