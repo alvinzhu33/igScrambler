@@ -21,11 +21,13 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+
+    <meta name="google-signin-client_id" content="1072523115860-pi871022ohoipedb2i6ugbgml7ak82r4.apps.googleusercontent.com">
 </head>
 <body class="container">
     <h1>igScrambler</h1>
 
-    <div class="g-signin2" onclick="onSignIn()"></div>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <button id="signOutButton" style="display: none;" onclick="signOut()" type="button" class="btn btn-light">
         Sign out
     </button>
