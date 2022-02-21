@@ -22,7 +22,10 @@
 <body class="container">
     <h1>igScrambler</h1>
 
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+    <button id="signInButton" type="button" class="btn btn-light">
+        Sign in
+    </button>
     <button id="signOutButton" style="display: none;" type="button" class="btn btn-light">
         Sign out
     </button>
@@ -193,30 +196,6 @@
         const provider = new GoogleAuthProvider();
         const auth = getAuth();
 
-        // getRedirectResult(auth)
-        //     .then((result) => {
-        //         // This gives you a Google Access Token. You can use it to access Google APIs.
-        //         const credential = GoogleAuthProvider.credentialFromResult(result);
-        //         const token = credential.accessToken;
-
-        //         // The signed-in user info.
-        //         const user = result.user;
-        //         userId = user.uid;
-        //         console.log("USER ID", userId)
-        //     }).catch((error) => {
-        //         // Handle Errors here.
-        //         const errorCode = error.code;
-        //         const errorMessage = error.message;
-        //         // The email of the user's account used.
-        //         const email = error.email;
-        //         // The AuthCredential type that was used.
-        //         const credential = GoogleAuthProvider.credentialFromError(error);
-                
-        //         console.log(errorCode)
-        //         console.log(errorMessage)
-        //         console.log(email)
-        //         console.log(credential)
-        //     });
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 // User is signed in, see docs for a list of available properties
@@ -230,6 +209,7 @@
             }
         });
 
+        document.getElementById("signInButton").addEventListener('click', onSignIn)
         document.getElementById("signOutButton").addEventListener('click', onSignOut)
 
         function onSignIn() {
