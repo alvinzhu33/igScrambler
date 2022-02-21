@@ -164,8 +164,11 @@
                     console.log("Loading")
                     const loadPromise = new Promise((resolve, reject) => {
                         const db = getDatabase();
+                        console.log(dg);
 
                         const userData = ref(db, userId + '/value')
+                        console.log(userData);
+                        
                         onValue(userData, (snapshot) => {
                             document.getElementById("genHashtags").value = snapshot.val().gen
                             document.getElementById("specHashtags").value = snapshot.val().spec
