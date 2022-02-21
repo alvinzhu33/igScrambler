@@ -28,7 +28,7 @@
     <h1>igScrambler</h1>
 
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <button id="signOutButton" style="display: none;" onclick="signOut()" type="button" class="btn btn-light">
+    <button id="signOutButton" style="display: none;" type="button" class="btn btn-light">
         Sign out
     </button>
     
@@ -199,6 +199,8 @@
                 signOutRender()
             }
         });
+
+        document.getElementById("signOutButton").addEventListener('click', signOut)
 
         function onSignIn() {
             firebase.auth()
