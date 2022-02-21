@@ -164,7 +164,7 @@
                     console.log("Loading")
                     const loadPromise = new Promise((resolve, reject) => {
                         const db = getDatabase();
-                        console.log(dg);
+                        console.log(db);
 
                         const userData = ref(db, userId + '/value')
                         console.log(userData);
