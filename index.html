@@ -185,13 +185,13 @@
             }
         }).mount('#app')
 
-        var signedIn = false;
-        var userId;
-
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const provider = new GoogleAuthProvider();
         const auth = getAuth();
+
+        var signedIn = false;
+        var userId;
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -208,8 +208,7 @@
 
         document.getElementById("signInButton").addEventListener('click', onSignIn);
         document.getElementById("signOutButton").addEventListener('click', onSignOut);
-        document.getElementById("saveButton").addEventListener('click', saveHashtags);
-
+        
         function onSignIn() {
             console.log("SIGNING IN...")
             signInWithPopup(auth, provider)
@@ -250,21 +249,6 @@
                 console.log("Signed out ERROR")
             });
         }
-        function saveHashtags() {
-            if (signedIn) {
-                let gen = document.getElementById("genHashtags").value.trim()
-                let spec = document.getElementById("specHashtags").value.trim()
-                // console.log(gen, spec)
-
-                const db = getDatabase();
-                set(ref(db, userId), {
-                    gen: gen,
-                    spec: spec
-                })
-            } else {
-                console.log("SIGN IN FIRST")
-            }
-        }
 
         function signInRender(){
             document.getElementById("signOutButton").style.display = "block"
@@ -279,6 +263,23 @@
             document.getElementById("saveButton").style.display = "none"
             document.getElementById("loadButton").style.display = "none"
             // document.getElementsByClassName("g-signin2")[0].style.display = "block"
+        }
+
+        document.getElementById("saveButton").addEventListener('click', saveHashtags);
+        function saveHashtags() {
+            if (signedIn) {
+                let gen = document.getElementById("genHashtags").value.trim()
+                let spec = document.getElementById("specHashtags").value.trim()
+                // console.log(gen, spec)
+
+                const db = getDatabase();
+                set(ref(db, userId), {
+                    gen: gen,
+                    spec: spec
+                })
+            } else {
+                console.log("SIGN IN FIRST")
+            }
         }
     </script>
 </body>
