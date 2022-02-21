@@ -217,7 +217,7 @@
         //         console.log(credential)
         //     });
 
-        document.getElementById("signOutButton").addEventListener('click', signOut)
+        document.getElementById("signOutButton").addEventListener('click', onSignOut)
 
         function onSignIn() {
             console.log("SIGNING IN...")
@@ -248,7 +248,7 @@
             signInRender()
             signedIn = true;
         }
-        function signOut() {
+        function onSignOut() {
             signOut(auth).then(() => {
                 console.log("Signed out")
             }).catch((error) => {
