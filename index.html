@@ -71,7 +71,7 @@
     <script type="module">
         import { createApp } from 'vue'
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js'
-        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'
         import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js"
 
         // Your web app's Firebase configuration
@@ -216,6 +216,18 @@
         //         console.log(email)
         //         console.log(credential)
         //     });
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                userId = user.uid;
+                signInRender();
+                console.log("Already signed in");
+            } else {
+                signOutRender();
+                console.log("No signed in user");
+            }
+        });
 
         document.getElementById("signOutButton").addEventListener('click', onSignOut)
 
