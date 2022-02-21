@@ -164,12 +164,11 @@
                     console.log("Loading")
                     const loadPromise = new Promise((resolve, reject) => {
                         const db = getDatabase();
-                        console.log(db);
+                        // console.log(db);
 
-                        const userData = ref(db, userId + '/value');
-                        const userData2 = ref(db, userId);
+                        const userData = ref(db, userId);
                         
-                        onValue(userData2, (snapshot) => {
+                        onValue(userData, (snapshot) => {
                             document.getElementById("genHashtags").value = snapshot.val().gen
                             document.getElementById("specHashtags").value = snapshot.val().spec
                             resolve("Great!")
@@ -185,7 +184,6 @@
                         let keyupEvent = new Event("keyup")
                         document.getElementById("genHashtags").dispatchEvent(keyupEvent)
                         document.getElementById("specHashtags").dispatchEvent(keyupEvent)
-
                     })
                 }
             }
