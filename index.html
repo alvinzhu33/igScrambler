@@ -78,14 +78,13 @@
         const firebaseConfig = {
             apiKey: "AIzaSyABJOM98XcFE_Wk-Z7H24AFQXNm3_ovf4g",
             authDomain: "igscramble.firebaseapp.com",
+            databaseURL: "https://igscramble-default-rtdb.firebaseio.com",
             projectId: "igscramble",
             storageBucket: "igscramble.appspot.com",
             messagingSenderId: "1072523115860",
             appId: "1:1072523115860:web:65299d76f9840b87c8dcc1",
             measurementId: "G-MS73B36M6X"
         };
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
         
         createApp({
             data() {
@@ -189,6 +188,8 @@
         var signedIn = false;
         var userId;
 
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
         const provider = new GoogleAuthProvider();
         const auth = getAuth();
 
