@@ -217,7 +217,9 @@
         document.getElementById("signOutButton").addEventListener('click', signOut)
 
         function onSignIn() {
+            console.log("SIGNING IN...")
             signInWithRedirect(auth, provider);
+            console.log("COMPLETE SIGN IN PROCESS")
             signInRender()
             signedIn = true;
         }
