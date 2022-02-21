@@ -223,6 +223,9 @@
                     const user = result.user;
                     userId = user.uid;
                     console.log("USER ID", userId)
+                    
+                    signInRender()
+                    signedIn = true;
                 }).catch((error) => {
                     // Handle Errors here.
                     const errorCode = error.code;
@@ -238,17 +241,16 @@
                     console.log(credential)
                 });
             console.log("COMPLETE SIGN IN PROCESS")
-            signInRender()
-            signedIn = true;
         }
         function onSignOut() {
             signOut(auth).then(() => {
                 console.log("Signed out")
+                
+                signOutRender()
+                signedIn = false;
             }).catch((error) => {
                 console.log("Signed out ERROR")
             });
-            signOutRender()
-            signedIn = false;
         }
         function saveHashtags() {
             var auth2 = gapi.auth2.getAuthInstance();
@@ -267,15 +269,17 @@
 
         function signInRender(){
             document.getElementById("signOutButton").style.display = "block"
+            document.getElementById("signInButton").style.display = "none"
             document.getElementById("loadButton").style.display = "block"
-            document.getElementsByClassName("g-signin2")[0].style.display = "none"
+            // document.getElementsByClassName("g-signin2")[0].style.display = "none"
             // document.getElementById("saveButton").style.display = "block"
         }
         function signOutRender(){
             document.getElementById("signOutButton").style.display = "none"
+            document.getElementById("signInButton").style.display = "block"
             document.getElementById("saveButton").style.display = "none"
             document.getElementById("loadButton").style.display = "none"
-            document.getElementsByClassName("g-signin2")[0].style.display = "block"
+            // document.getElementsByClassName("g-signin2")[0].style.display = "block"
         }
     </script>
 </body>
