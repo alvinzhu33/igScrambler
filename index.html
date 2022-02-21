@@ -253,14 +253,14 @@
         function signInRender(){
             document.getElementById("signOutButton").style.display = "block"
             document.getElementById("loadButton").style.display = "block"
-            document.getElementsByClassName("g-signin2").style.display = "none"
+            document.getElementsByClassName("g-signin2")[0].style.display = "none"
             // document.getElementById("saveButton").style.display = "block"
         }
         function signOutRender(){
             document.getElementById("signOutButton").style.display = "none"
             document.getElementById("saveButton").style.display = "none"
             document.getElementById("loadButton").style.display = "none"
-            document.getElementsByClassName("g-signin2").style.display = "block"
+            document.getElementsByClassName("g-signin2")[0].style.display = "block"
         }
     </script>
 </body>
