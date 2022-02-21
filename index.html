@@ -68,7 +68,7 @@
         </div>
         <button v-if="show" v-on:click="copy">COPY SCRAMBLE</button>
 
-        <button id="saveButton" style="display:none" onclick="saveHashtags();">Save</button>
+        <button id="saveButton" style="display:none">Save</button>
     </div>
 
     <script type="module">
@@ -206,8 +206,9 @@
             }
         });
 
-        document.getElementById("signInButton").addEventListener('click', onSignIn)
-        document.getElementById("signOutButton").addEventListener('click', onSignOut)
+        document.getElementById("signInButton").addEventListener('click', onSignIn);
+        document.getElementById("signOutButton").addEventListener('click', onSignOut);
+        document.getElementById("saveButton").addEventListener('click', saveHashtags);
 
         function onSignIn() {
             console.log("SIGNING IN...")
