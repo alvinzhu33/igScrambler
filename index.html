@@ -39,7 +39,7 @@
     
             <div class="hashtagInput mb-3">
                 <label for="genHashtags" class="form-label">General Hashtags</label>
-                <input id="genHashtags" type="text" v-model.trim="messageGeneral" v-on:keyup="splice(1)" placeholder="General-use hashtags" class="form-control" ref="genHashInput">
+                <textarea id="genHashtags" type="text" v-model.trim="messageGeneral" v-on:keyup="splice(1)" placeholder="General-use hashtags" class="form-control" ref="genHashInput"></textarea>
                 <div class='hashtagDisplay'>
                     <a v-for="wordIndex in splitGeneral.length" class="hashtags" :style="{ 'background-color' : colorsGeneral[(wordIndex-1)%3]}" :href="'https://www.instagram.com/explore/tags/' + splitGeneral[wordIndex-1]">
                         #{{ splitGeneral[wordIndex-1] }}
@@ -48,7 +48,7 @@
             </div>
             <div class="hashtagInput mb-3">
                 <label for="specHashtags" class="form-label">Specific Hashtags</label>
-                <input id="specHashtags" type="text" v-model.trim="messageSpecific" v-on:keyup="splice(2)" placeholder="Post-specific hashtags" class="form-control" ref="specHashInput">
+                <textarea id="specHashtags" type="text" v-model.trim="messageSpecific" v-on:keyup="splice(2)" placeholder="Post-specific hashtags" class="form-control" ref="specHashInput"></textarea>
                 <div class='hashtagDisplay'>
                     <a v-for="wordIndex in splitSpecific.length" class="hashtags" :style="{ 'background-color' : colorsSpecific[(wordIndex-1)%3]}" :href="'https://www.instagram.com/explore/tags/' + splitSpecific[wordIndex-1]">
                         #{{ splitSpecific[wordIndex-1] }}
@@ -116,6 +116,8 @@
                     colorsGeneral: (["#96E8BC", "#23967F", "#7DAF9C"]).sort(() => Math.random() - 0.5),
                     colorsSpecific: (["#0a369d", "#4472ca", "#5e7ce2"]).sort(() => Math.random() - 0.5),
                     colorsScrambled: (["#A62639", "#DB324D", "#E43F6F"]).sort(() => Math.random() - 0.5),
+                    scrollHeightGen: 60,
+                    scrollHeightSpec: 60,
                 }
             },
             methods: {
@@ -134,6 +136,13 @@
                             this.splitGeneral = []
                             this.lengthGeneral = 0
                         }
+
+                        var scrollHeight = document.getElementById("genHashtags").scrollHeight
+                        if (scrollHeight > this.scrollHeightGen) {
+                            console.log(scrollHeight + 10 + "px")
+                            document.getElementById("genHashtags").style.height = scrollHeight + 10 + "px"
+                            this.scrollHeightGen = scrollHeight + 10
+                        }
                     } else {
                         // console.log("hit2")
                         // console.log(this.messageSpecific)
@@ -147,6 +156,13 @@
                         } else {
                             this.splitSpecific = []
                             this.lengthSpecific = 0
+                        }
+
+                        var scrollHeight = document.getElementById("specHashtags").scrollHeight
+                        if (scrollHeight > this.scrollHeightSpec) {
+                            console.log(scrollHeight + 10 + "px")
+                            document.getElementById("specHashtags").style.height = scrollHeight + 10 + "px"
+                            this.scrollHeightSpec = scrollHeight + 10
                         }
                     }
                     this.lengthTot = this.lengthGeneral+this.lengthSpecific
@@ -165,17 +181,11 @@
                 copy: function(event){
                     console.log("Copying")
                     var inputEle = document.createElement('input')
-                    // console.log(1)
                     inputEle.setAttribute('value', this.scrambledMessage)
-                    // console.log(2)
                     document.body.append(inputEle)
-                    // console.log(3)
                     inputEle.select()
-                    // console.log(4)
                     document.execCommand('copy')
-                    // console.log(5)
                     inputEle.parentNode.removeChild(inputEle)
-                    // console.log(6)
                 },
                 loadWords: function(event){
                     console.log("Loading")

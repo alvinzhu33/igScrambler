@@ -55,3 +55,7 @@ a:hover {
     background-color: #a4133c !important;
     border-color: #a4133c !important;
 }
+
+input {
+    word-wrap: break-word;
+}
