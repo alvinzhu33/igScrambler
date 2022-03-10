@@ -153,12 +153,18 @@
                 },
                 copy: function(event){
                     console.log("Copying")
-                    inputEle = document.createElement('input')
+                    var inputEle = document.createElement('input')
+                    // console.log(1)
                     inputEle.setAttribute('value', this.scrambledMessage)
+                    // console.log(2)
                     document.body.append(inputEle)
+                    // console.log(3)
                     inputEle.select()
+                    // console.log(4)
                     document.execCommand('copy')
+                    // console.log(5)
                     inputEle.parentNode.removeChild(inputEle)
+                    // console.log(6)
                 },
                 loadWords: function(event){
                     console.log("Loading")
