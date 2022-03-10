@@ -22,53 +22,58 @@
 <body class="container">
     <h1>igScrambler</h1>
 
-    <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
-    <button id="signInButton" style="display: none;" type="button" class="btn btn-light">
-        Sign in
-    </button>
-    <button id="signOutButton" style="display: none;" type="button" class="btn btn-light">
-        Sign out
-    </button>
+    <div id="signInOut">
+        <button id="signInButton" style="display: none;" type="button" class="btn btn-light">
+            Sign in
+        </button>
+        <button id="signOutButton" style="display: none;" type="button" class="btn btn-dark">
+            Sign out
+        </button>
+    </div>
     
     <div id="app">
-        <button id="loadButton" style="display: none;" v-on:click="loadWords" type="button" class="btn btn-info">
-            Load Saved Words
-        </button>
-        <div class="hashtagInput mb-3">
-            <label for="genHashtags" class="form-label">General Hashtags</label>
-            <input id="genHashtags" type="text" v-model.trim="messageGeneral" v-on:keyup="splice(1)" placeholder="General-use hashtags" class="form-control" ref="genHashInput">
-            <div class='hashtagDisplay'>
-                <a v-for="wordIndex in splitGeneral.length" class="hashtags" :style="{ 'background-color' : colorsGeneral[(wordIndex-1)%3]}" :href="'https://www.instagram.com/explore/tags/' + splitGeneral[wordIndex-1]">
-                    #{{ splitGeneral[wordIndex-1] }}
-                </a>
+        <div id="typeInHashtags">
+            <button id="loadButton" style="display: none;" v-on:click="loadWords" type="button" class="btn btn-secondary">
+                Load Saved Words
+            </button>
+    
+            <div class="hashtagInput mb-3">
+                <label for="genHashtags" class="form-label">General Hashtags</label>
+                <input id="genHashtags" type="text" v-model.trim="messageGeneral" v-on:keyup="splice(1)" placeholder="General-use hashtags" class="form-control" ref="genHashInput">
+                <div class='hashtagDisplay'>
+                    <a v-for="wordIndex in splitGeneral.length" class="hashtags" :style="{ 'background-color' : colorsGeneral[(wordIndex-1)%3]}" :href="'https://www.instagram.com/explore/tags/' + splitGeneral[wordIndex-1]">
+                        #{{ splitGeneral[wordIndex-1] }}
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="hashtagInput mb-3">
-            <label for="specHashtags" class="form-label">Specific Hashtags</label>
-            <input id="specHashtags" type="text" v-model.trim="messageSpecific" v-on:keyup="splice(2)" placeholder="Post-specific hashtags" class="form-control" ref="specHashInput">
-            <div class='hashtagDisplay'>
-                <a v-for="wordIndex in splitSpecific.length" class="hashtags" :style="{ 'background-color' : colorsSpecific[(wordIndex-1)%3]}" :href="'https://www.instagram.com/explore/tags/' + splitSpecific[wordIndex-1]">
-                    #{{ splitSpecific[wordIndex-1] }}
-                </a>
+            <div class="hashtagInput mb-3">
+                <label for="specHashtags" class="form-label">Specific Hashtags</label>
+                <input id="specHashtags" type="text" v-model.trim="messageSpecific" v-on:keyup="splice(2)" placeholder="Post-specific hashtags" class="form-control" ref="specHashInput">
+                <div class='hashtagDisplay'>
+                    <a v-for="wordIndex in splitSpecific.length" class="hashtags" :style="{ 'background-color' : colorsSpecific[(wordIndex-1)%3]}" :href="'https://www.instagram.com/explore/tags/' + splitSpecific[wordIndex-1]">
+                        #{{ splitSpecific[wordIndex-1] }}
+                    </a>
+                </div>
             </div>
         </div>
 
-        <div>
+        <div id="numHashtags">
             <p><b>Number of Hashtags:</b> {{ lengthTot }}</p>
         </div>
 
-        <button v-if="splitGeneral.length >0 || splitSpecific.length > 0" v-on:click="scramble">SCRAMBLE</button>
-        <div class='hashtagDisplay'>
-            <!-- <div v-if="show" v-for="word in scrambledSplit" class="hashtags">#{{ word }}</div> -->
-            <a v-for="wordIndex in scrambledSplit.length" class="hashtags"
-                :style="{ 'background-color' : colorsScrambled[(wordIndex-1)%3]}"
-                :href="'https://www.instagram.com/explore/tags/' + scrambledSplit[wordIndex-1]">
-                #{{ scrambledSplit[wordIndex-1] }}
-            </a>
+        <div id="scrambledHashtags">
+            <button v-if="splitGeneral.length >0 || splitSpecific.length > 0" v-on:click="scramble" type="button" class="btn btn-primary">SCRAMBLE</button>
+            <div class='hashtagDisplay'>
+                <a v-for="wordIndex in scrambledSplit.length" class="hashtags"
+                    :style="{ 'background-color' : colorsScrambled[(wordIndex-1)%3]}"
+                    :href="'https://www.instagram.com/explore/tags/' + scrambledSplit[wordIndex-1]">
+                    #{{ scrambledSplit[wordIndex-1] }}
+                </a>
+            </div>
+            <button v-if="show" v-on:click="copy" type="button" class="btn btn-info">COPY SCRAMBLE</button>
+    
+            <button id="saveButton" style="display:none" type="button" class="btn btn-success">Save</button>
         </div>
-        <button v-if="show" v-on:click="copy">COPY SCRAMBLE</button>
-
-        <button id="saveButton" style="display:none">Save</button>
     </div>
 
     <script type="module">
@@ -154,17 +159,17 @@
                 copy: function(event){
                     console.log("Copying")
                     var inputEle = document.createElement('input')
-                    // console.log(1)
+                    console.log(1)
                     inputEle.setAttribute('value', this.scrambledMessage)
-                    // console.log(2)
+                    console.log(2)
                     document.body.append(inputEle)
-                    // console.log(3)
+                    console.log(3)
                     inputEle.select()
-                    // console.log(4)
+                    console.log(4)
                     document.execCommand('copy')
-                    // console.log(5)
+                    console.log(5)
                     inputEle.parentNode.removeChild(inputEle)
-                    // console.log(6)
+                    console.log(6)
                 },
                 loadWords: function(event){
                     console.log("Loading")
