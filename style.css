@@ -59,3 +59,20 @@ a:hover {
 input {
     word-wrap: break-word;
 }
+
+h1 {
+    text-align: center;
+}
+
+.centerButton {
+    text-align: center;
+}
+
+#saveButton {
+    margin-top: 3em;
+    margin-bottom: 1.5em;
+}
+
+button {
+    width: 8em;
+}
