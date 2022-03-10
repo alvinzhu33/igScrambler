@@ -34,15 +34,24 @@ a:hover {
 }
 
 #numHashtags {
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
 #scrambledHashtags > .hashtagDisplay {
     padding-top: 1em;
-    padding-bottom: 2em;
+    padding-bottom: 1.5em;
 }
 
 #scrambledHashtags > button {
     margin-top: 1em;
+}
+
+#loadButton {
+    margin-bottom: 1.5em;
+}
+
+.scrambleButton {
+    background-color: #a4133c !important;
+    border-color: #a4133c !important;
 }
